@@ -44,7 +44,33 @@ AA-SNAP provides several advantages over the existing Account Abstraction soluti
 ## Architecture
 By providing a modularized infrastructure for account abstraction projects, developers can inherit from this base contract and easily integrate the modularized features available in the trusted facet repository or create their own trusted facet repository. This approach not only streamlines the development process but also promotes standardization and collaboration among different projects. The shared infrastructure encourages consistent security practices, improves code reusability, and reduces the likelihood of code duplication. Ultimately, this unified approach fosters innovation and growth within the Ethereum ecosystem, leading to the development of advanced, secure, and user-friendly wallet solutions that cater to diverse use cases and user preferences.
 
+![architecture](aa-snap-architecture.png)
 The development of a standardized reference implementation incorporating segregated storage pointers is a crucial step towards ensuring the safe and seamless integration of modular features in the account abstraction wallets. By employing segregated storage pointers, the reference implementation effectively mitigates the risk of storage collisions between different facets, preserving the integrity and reliability of the wallet system. The reference implementation will serve as a resource for the developer community utilizing modularized AA in the future by  promoting best practices in contract development and storage management while minimizing potential vulnerabilities. This, in turn, accelerates the adoption of modular account abstraction wallets and contributes to the overall growth and security of the ecosystem.
+
+## Storage Pattern
+![storage-pattern](snap-storage-pattern.png)
+
+The storage pattern used by the Diamond Standard is designed to allow each snap, or "facet," to have its own separate storage while sharing the same contract address.
+
+Each snap within a Diamond contract has its own unique storage slot defined using the keccak256 hashing algorithm. These storage slots are used to store state variables specific to that module.
+
+For example, if we have a module called PeripheryV3 in the org.uniswap organization domain, we might define a storage slot as follows:
+
+```
+bytes32 internal constant STORAGE_SLOT =
+    keccak256('org.uniswap.storage.PeripheryV3');
+```
+
+Likewise, if we have a module called AccessControl in the com.aa-snap organization domain, we might define its storage slot as follows:
+
+```
+bytes32 internal constant STORAGE_SLOT =
+    keccak256('com.aa-snap.storage.AccessControl');
+```
+
+Notice that the storage slot name includes both the organization domain and the name of the SNAP. This naming convention helps to ensure that storage slots are unique across different contracts, even if they have similar variable names.
+
+Using the Diamond Standard, we can easily add new modules to a contract without having to redeploy the entire contract. Each new module can have its own separate storage, allowing for more flexibility and modularity in our smart contract design.
 
 ## AA Snap Management / Integration
 When a facet is added to the repository, it emits an event that can be indexed and queried using TheGraph, a powerful decentralized data querying protocol.
