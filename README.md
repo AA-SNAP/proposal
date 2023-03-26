@@ -26,7 +26,8 @@ The impact of AA-SNAP will be far-reaching as it will provide developers with an
 ## Purpose and Goals
 The main objective of AA-SNAP is to simplify the process of creating and managing Account Abstraction upgrades using the Diamond Standard. Our platform will provide a seamless and efficient solution for developers to publish their Facets, and users can easily manage the storage slots of their diamonds. By using AA-SNAP, developers can create users upgradeable Account with ease, with an efficient packaging management system.
 
-### Use Cases:AA-SNAP will be a valuable tool for developers working on various Account Abstraction use cases. For instance, 
+### Use Cases
+AA-SNAP will be a valuable tool for developers working on various Account Abstraction use cases. For instance, 
 - Access Control (SNAP that provide access control to user accounts)
 - Saving Account (SNAP that can add DEFI strategies to your account)
 - Social Recovery (SNAP that can add guardians and recovery processes)
