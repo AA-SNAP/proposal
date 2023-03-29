@@ -1,4 +1,6 @@
 # AA-SNAP (Account Abstraction-SNAP)
+## Introduction
+We are thrilled to submit our project proposal, **AA-SNAP**, to the Ethereum Foundation's grant program. Our project is focused on creating a packaging management solution for **Account Abstraction upgradeability** using the Diamond Standard. With AA-SNAP, developers can publish their Facets (SNAPS) on our platform, and users can easily manage the storage slots of their diamonds.
 
 ## Background
 The Ethereum ecosystem has seen the emergence of modular smart contract systems like Diamonds and Multi-Facet Proxy via ERC-2535. These systems enable smart contract developers to create modular and scalable applications by separating concerns and allowing for independent development and deployment of contract modules.
@@ -11,9 +13,6 @@ This Ethereum Improvement Proposal (EIP) proposes a new way of managing account 
 ### ERC-2535: Diamonds, Multi-Facet Proxy
 ERC-2535 proposes a new way of managing smart contracts on the Ethereum blockchain. The proposal suggests creating a new type of contract called a Diamond, which acts as a multi-facet proxy for other smart contracts. The Diamond contract provides a way for developers to add and remove functionality from their contracts without having to redeploy the entire contract. This makes it easier to upgrade contracts and maintain backwards compatibility with existing contracts. The proposal also includes a set of best practices for creating and managing Diamond contracts.
 
-## Introduction
-We are thrilled to submit our project proposal, **AA-SNAP**, to the Ethereum Foundation's grant program. Our project is focused on creating a packaging management solution for Account Abstraction upgradeability using the Diamond Standard. With AA-SNAP, developers can publish their Facets (SNAPS) on our platform, and users can easily manage the storage slots of their diamonds.
-
 ## Problem
 Currently, users face several challenges when trying to **create and manage** their **Account Abstraction upgrades**. For instance, users have to manually upgrade their contracts, which is cumbersome and prone to errors. Moreover, users have to manage the storage slots of their diamonds to avoid collisions, which is a time-consuming and complex process. These challenges make it difficult for users to fully benefit from Account Abstraction.
 
@@ -23,23 +22,40 @@ Developers also face several problems while working with Account Abstraction. Fo
 ## Impact
 The impact of AA-SNAP will be far-reaching as it will provide developers with an efficient platform to manage and publish their Facets, saving them time and resources. Additionally, users will be able to manage and upgrade their Facets without cumbersome manual upgrades. Our platform checks compatibilities and scans for security before upgrading. Facets that users can use are already security audited. Our project will contribute to the growth and adoption of Account Abstraction in the Ethereum ecosystem.
 
+\newpage
+
 ## Purpose and Goals
 The main objective of AA-SNAP is to simplify the process of creating and managing Account Abstraction upgrades using the Diamond Standard. Our platform will provide a seamless and efficient solution for developers to publish their Facets, and users can easily manage the storage slots of their diamonds. By using AA-SNAP, developers can create users upgradeable Account with ease, with an efficient packaging management system.
 
-### Use Cases
-AA-SNAP will be a valuable tool for developers working on various Account Abstraction use cases. For instance, 
-- Access Control (SNAP that provide access control to user accounts)
-- Saving Account (SNAP that can add DEFI strategies to your account)
-- Social Recovery (SNAP that can add guardians and recovery processes)
-- Adding Account limits, like transaction limit or daily limit
-- DeFi connections like Uniswap
-- SafeERC20 snap
-- ZK-Nullifier (Adding anonymous identifiers via verifiably deterministic signatures on your account)
+### Examples of SNAPS
+AA-SNAP will be a valuable tool for developers working on various Account Abstraction examples. For instance, 
+
+* Access Control (SNAP that provide access control to user accounts)
+
+* Saving Account (SNAP that can add DEFI strategies to your account)
+
+* Social Recovery (SNAP that can add guardians and recovery processes)
+
+* Adding Account limits, like transaction limit or daily limit
+
+* ZK-Nullifier (Adding anonymous identifiers via verifiably deterministic signatures on your account)
+
+* DeFi connections like Uniswap
+
+* Whitelist/Blacklisting
+
+* SafeERC20
+
+* Oracle
+
+* Transaction/Approval Management
 
 By using AA-SNAP, users can manage and upgrade their Facets without the need for cumbersome manual upgrades. Moreover, we will perform compatibility checks and security scans before any upgrades to ensure the safety of our users. All published Facets will be security audited, so users can use them with peace of mind.
 
 ## Advantages
 AA-SNAP provides several advantages over the existing Account Abstraction solutions. Developers do not have to deploy all the contracts functionality (FACET) again and again. With SNAP, users can just add it to their Account. AA-SNAP makes it easy to manage storage slots of diamonds and avoid collisions. Moreover, our platform ensures that Facets are compatible and secure before deployment.
+
+\newpage
 
 ## Architecture
 By providing a modularized infrastructure for account abstraction projects, developers can inherit from this base contract and easily integrate the modularized features available in the trusted facet repository or create their own trusted facet repository. This approach not only streamlines the development process but also promotes standardization and collaboration among different projects. The shared infrastructure encourages consistent security practices, improves code reusability, and reduces the likelihood of code duplication. Ultimately, this unified approach fosters innovation and growth within the Ethereum ecosystem, leading to the development of advanced, secure, and user-friendly wallet solutions that cater to diverse use cases and user preferences.
@@ -47,21 +63,29 @@ By providing a modularized infrastructure for account abstraction projects, deve
 ![architecture](aa-snap-architecture.png)
 The development of a standardized reference implementation incorporating segregated storage pointers is a crucial step towards ensuring the safe and seamless integration of modular features in the account abstraction wallets. By employing segregated storage pointers, the reference implementation effectively mitigates the risk of storage collisions between different facets, preserving the integrity and reliability of the wallet system. The reference implementation will serve as a resource for the developer community utilizing modularized AA in the future by  promoting best practices in contract development and storage management while minimizing potential vulnerabilities. This, in turn, accelerates the adoption of modular account abstraction wallets and contributes to the overall growth and security of the ecosystem.
 
-## Storage Pattern
+### Reuseable deployed snaps
+![reusing-deployed-snap.png](reusing-deployed-snap.png
+)
+
+When AccessControl and Pauseable snaps are already deployed to the Ethereum mainnet, Bob can simply reuse them instead of redeploying the same snaps. In this scenario, Alice is already using the snaps, and if Bob also wants to use them, he can snap his Account to the deployed snaps.
+
+This process is depicted in the image above, where both Alice and Bob have their respective Accounts. Alice has already snapped her Account to the AccessControl and Pauseable snaps, and Bob wants to use the same snaps. Instead of deploying them again, Bob simply snaps his Account to the already deployed snaps, thereby reusing them. This way, Bob can save time and resources required for deploying new snaps.
+
+### Storage Pattern
 ![storage-pattern](snap-storage-pattern.png)
 
 The storage pattern used by the Diamond Standard is designed to allow each snap, or "facet," to have its own separate storage while sharing the same contract address.
 
-Each snap within a Diamond contract has its own unique storage slot defined using the keccak256 hashing algorithm. These storage slots are used to store state variables specific to that module.
+Each snap within a Diamond contract has its own unique storage slot defined using the keccak256 hashing algorithm. These storage slots are used to store state variables specific to that snap.
 
-For example, if we have a module called PeripheryV3 in the org.uniswap organization domain, we might define a storage slot as follows:
+For example, if we have a snap called PeripheryV3 in the org.uniswap organization domain, we might define a storage slot as follows:
 
 ```
 bytes32 internal constant STORAGE_SLOT =
     keccak256('org.uniswap.storage.PeripheryV3');
 ```
 
-Likewise, if we have a module called AccessControl in the com.aa-snap organization domain, we might define its storage slot as follows:
+Likewise, if we have a snap called AccessControl in the com.aa-snap organization domain, we might define its storage slot as follows:
 
 ```
 bytes32 internal constant STORAGE_SLOT =
@@ -85,6 +109,7 @@ Standardize snap interfaces: To manage snap compatibility is to standardize the 
 Test and validate snaps: Only tested and validated snaps can be used. We test and validate snaps automatically before they are added to a system. This involves testing each snap individually to ensure that it works as intended and then testing them in combination to verify that they are compatible with one another. This can be a time-consuming process, but it can help avoid compatibility issues down the line.
 We will establish a community of snap developers: Developers can help manage compatibility by providing a forum for developers to discuss issues and share solutions. This can help identify and address compatibility issues quickly and efficiently.
 
+\newpage
 
 ## Timeline and Budget
 We propose a 6-month timeline for the project, beginning from the date of the grant award. The project will be completed in four phases:
@@ -97,8 +122,8 @@ Phase 4 (1 month) - Final documentation and submission
 We are requesting a budget of $50,000, which will cover the salaries of the development team, hosting costs, and other expenses related to the development and deployment of AA-SNAP.
 
 ## Proposers
-- Zeroknots.eth
-- [IaM <DEV>](https://github.com/iam-dev)
+* [Zeroknots.eth](https://github.com/zeroknots)
+* [IaM &lt;DEV&gt;](https://github.com/iam-dev)
 
 
 ## Risk, Security Concerns and Remediations
@@ -116,13 +141,14 @@ Security Concern: Unauthorized access to modules and wallet functions may lead t
 
 Remediation: The project will implement a robust access control mechanism to restrict access to critical wallet functionalities. This mechanism will include multi-signature approval processes, permission management, and the ability to limit access to specific modules.
 
+\newpage
 
 ## Conclusion:
 AA-SNAP is an innovative project that will provide a user-friendly and efficient packaging management solution for Account Abstraction upgradeability. Our project aligns with the Ethereum Foundation's grant program's goals and objectives, and we are confident that AA-SNAP will be a valuable addition to the Account Abstraction ecosystem.
 
 
 ## References
-- [Account Abstraction Grants 2023](https://esp.ethereum.foundation/account-abstraction-grants)
-- [ERC-4337: Account Abstraction Using Alt Mempool](https://eips.ethereum.org/EIPS/eip-4337)
-- [ERC-2535: Diamonds, Multi-Facet Proxy](https://eips.ethereum.org/EIPS/eip-2535)
-- [SolidState ERC-2535 implementation](https://github.com/solidstate-network/solidstate-solidity)
+* [Account Abstraction Grants 2023](https://esp.ethereum.foundation/account-abstraction-grants)
+* [ERC-4337: Account Abstraction Using Alt Mempool](https://eips.ethereum.org/EIPS/eip-4337)
+* [ERC-2535: Diamonds, Multi-Facet Proxy](https://eips.ethereum.org/EIPS/eip-2535)
+* [SolidState ERC-2535 implementation](https://github.com/solidstate-network/solidstate-solidity)
