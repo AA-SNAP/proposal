@@ -1,6 +1,6 @@
 # AA-SNAP (Account Abstraction-SNAP)
 ## Introduction
-We are thrilled to submit our project proposal, **AA-SNAP**, to the Ethereum Foundation's grant program. Our project is focused on creating a packaging management solution for **Account Abstraction upgradeability** using the Diamond Standard. With AA-SNAP, developers can publish their Facets (SNAPS) on our platform, and users can easily manage the storage slots of their diamonds.
+We are thrilled to submit our project proposal, **AA-SNAP**, to the Ethereum Foundation's grant program. Our project is focused on creating a packaging management solution for **Account Abstraction upgradeability**velop using the Diamond Standard. With AA-SNAP, developers can publish their Facets (SNAPS) on our platform, and users can easily manage the storage slots of their diamonds.
 
 ## Background
 The Ethereum ecosystem has seen the emergence of modular smart contract systems like Diamonds and Multi-Facet Proxy via ERC-2535. These systems enable smart contract developers to create modular and scalable applications by separating concerns and allowing for independent development and deployment of contract modules.
