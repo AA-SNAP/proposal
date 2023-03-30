@@ -122,7 +122,6 @@ Phase 4 (1 month) - Final documentation and submission
 We are requesting a budget of $50,000, which will cover the salaries of the development team, hosting costs, and other expenses related to the development and deployment of AA-SNAP.
 
 ## Proposers
-* [Zeroknots.eth](https://github.com/zeroknots)
 * [IaM &lt;DEV&gt;](https://github.com/iam-dev)
 
 
